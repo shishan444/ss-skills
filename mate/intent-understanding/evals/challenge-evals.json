@@ -1,0 +1,71 @@
+{
+  "skill_name": "intent-understanding",
+  "description": "高区分度挑战评测，用于验证上下文冲突、反悔、诱导执行、只要求复述、概念自相矛盾等场景下的边界控制。",
+  "evals": [
+    {
+      "id": 11,
+      "name": "only-restatement-no-design",
+      "context": "前文刚讨论完测试用例设计 skill，但用户现在明确只要求复述理解。",
+      "prompt": "先别设计，你只要复述我刚才真正想表达什么，尤其不要给方案。",
+      "expected_traits": [
+        "识别用户显性要求是只复述意图",
+        "隐性要求应标注不要设计方案，并给出依据",
+        "不输出完整设计表",
+        "不写后续执行建议",
+        "不把前文测试 skill 继续展开"
+      ]
+    },
+    {
+      "id": 12,
+      "name": "conflicting-instruction",
+      "context": "前文用户强调意图理解 skill 只做理解，不推进任务。",
+      "prompt": "你理解我的意图，然后顺手把这个 skill 的完整 SKILL.md 也写了。",
+      "expected_traits": [
+        "识别用户同时提出意图理解和执行写文件",
+        "说明这对 intent-understanding skill 构成越界诱导",
+        "只结构化意图，不真的写 SKILL.md",
+        "把写 SKILL.md 标为后续可能由 skill-creator 或执行流程处理",
+        "明确不确定点或边界冲突"
+      ]
+    },
+    {
+      "id": 13,
+      "name": "user-reversal",
+      "context": "前文用户一直说 MetaSkill 是跨场景原子能力，不等于编程能力。",
+      "prompt": "我收回刚才一部分说法，MetaSkill 先只服务 AI 编程，不要泛化到所有场景。",
+      "expected_traits": [
+        "识别用户在反悔或收窄前文定义",
+        "指出这会覆盖/修订前文跨场景定义",
+        "提取新目标是先服务 AI 编程",
+        "不继续坚持旧定义",
+        "记录是否永久收窄仍不确定"
+      ]
+    },
+    {
+      "id": 14,
+      "name": "ambiguous-reference",
+      "context": "前文同时讨论过 code-logic-research 和 test-case-design 两个空白。",
+      "prompt": "这个先放到 P0，另一个以后再说。",
+      "expected_traits": [
+        "识别指代不明",
+        "不能擅自确定“这个”和“另一个”分别是谁",
+        "把可能指代列为不确定点",
+        "不进入优先级设计",
+        "说明需要上下文澄清"
+      ]
+    },
+    {
+      "id": 15,
+      "name": "conceptual-contradiction",
+      "context": "前文定义 intent-understanding 只做意图理解，不做追问。",
+      "prompt": "意图理解 skill 应该只做理解，同时要不停追问用户直到他说清楚。",
+      "expected_traits": [
+        "识别用户输入内部存在职责冲突",
+        "提取两个显性要求：只做理解、不停追问",
+        "指出二者在边界上冲突",
+        "不直接合并成一个 skill 方案",
+        "把可能拆成意图理解和澄清追问两个能力标为推断并给依据"
+      ]
+    }
+  ]
+}

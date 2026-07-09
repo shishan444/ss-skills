@@ -1,0 +1,7 @@
+interface:
+  display_name: "正确工作范式"
+  short_description: "用五个判断闸门按需澄清工作，形成可靠、可行动的全局认知"
+  default_prompt: "使用 $standardize-work 与我判断这项工作的局面、结果、路径、风险和行动是否成立，并只在不清楚时展开追问。"
+
+policy:
+  allow_implicit_invocation: false

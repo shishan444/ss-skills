@@ -1,0 +1,7 @@
+interface:
+  display_name: "SDD Engineering Work"
+  short_description: "Evidence-driven software research and implementation"
+  default_prompt: "Use $sdd-work to research this codebase, define verifiable behavior, implement the change, and audit the result."
+
+policy:
+  allow_implicit_invocation: false

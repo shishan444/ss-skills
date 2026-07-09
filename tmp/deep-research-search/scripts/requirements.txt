@@ -1,0 +1,4 @@
+# deep-research-search Python 依赖（CDP 能力 + 内容提取）
+# 安装：python3 -m pip install -r requirements.txt
+requests>=2.28      # cdp_client.py / cdp_fetch.py / serp_collect.py 调用 CDP Proxy
+trafilatura>=1.6    # url_fetch.py 正文提取

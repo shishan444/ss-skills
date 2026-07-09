@@ -1,0 +1,23 @@
+{
+  "skill_name": "obsidian-think",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "帮我处理一下今天的inbox笔记",
+      "expected_output": "AI 从 02inbox/ 随机取一个文件，展示内容，开始分步引导对话。第一步应该先提炼'这是什么'的陈述句，然后等待用户确认。",
+      "files": ["works/tmp/obsidian-test-2026042022/02inbox/费曼学习法.md"]
+    },
+    {
+      "id": 2,
+      "prompt": "思考笔记",
+      "expected_output": "AI 从 02inbox/ 取碎片笔记，启动分步引导流程。应当自然地展示原文并提出第一个问题。",
+      "files": ["works/tmp/obsidian-test-2026042022/02inbox/费曼学习法.md"]
+    },
+    {
+      "id": 3,
+      "prompt": "处理inbox，我 vault 路径是 D:/git/aicode/demo/works/tmp/obsidian-test-2026042022/",
+      "expected_output": "AI 读取指定路径的 02inbox/ 目录，随机取文件，展示内容并开始引导对话。应当搜索 vault 中已有笔记做关联推荐。",
+      "files": ["works/tmp/obsidian-test-2026042022/02inbox/费曼学习法.md"]
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "三层升维认知分析"
+  short_description: "按事实、因素结构、格局演化三层分析复杂决策"
+  default_prompt: "Use $layered-cognition-analysis to analyze this complex decision by clarifying facts, refining causal factor structures, building the larger situation, and returning an actionable direction."
