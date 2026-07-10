@@ -1,6 +1,6 @@
 ---
 name: intent-understanding
-description: Use this skill whenever the user gives a new instruction, correction, vague request, design revision, or says "理解我的意图", "你要理解我的意思", "修订意图", "继续讨论", or similar. This skill only interprets the user's intent from the latest prompt plus context, converting it into structured需求、目标、显性要求、隐性要求、目的、不确定点. It must not design solutions, make plans, write code, or advance the task.
+description: Use this skill as the first-pass intent understanding layer for natural-language user inputs, including new instructions, corrections, vague requests, design revisions, and context-dependent short prompts. Do not use this skill for system-provided client commands or command-only control messages such as slash commands (`/model`, `/help`, `/clear`, `/compact`, `/permissions`, `/plugin`, `/skill`, etc.); those should be handled by the client/runtime without intent analysis. For eligible inputs, understand the latest prompt plus context, then display the intent using the full or compact template based on task complexity. The real intent must include the surface request, contextual relationship, causal chain, value sought, explicit conditions, implicit conditions, uncertainty, and boundaries. The result also serves as internal context for the main flow. Displaying intent must not block or replace downstream work; continue with the appropriate downstream skill, tool, or action unless the user only asked for intent understanding or restatement. This skill itself must not perform the downstream task, make final decisions, write code, design solutions, or hide uncertainty.
 ---
 
 # 意图理解
@@ -13,7 +13,11 @@ description: Use this skill whenever the user gives a new instruction, correctio
 
 ## 工作边界
 
-只做意图理解，不推进任务。
+这个 skill 默认作为每次用户输入的前置理解层。每次用户输入都先运行一次意图理解，并把理解结果展示给用户。
+
+意图理解结果同时可以作为主流程的内部理解依据。展示意图理解不代表任务停止，也不替代后续任务处理；除非用户只要求意图理解或复述，主流程应在展示意图后继续推进合适的下游 skill、工具或行动。
+
+在本 skill 自身范围内，只做意图理解，不执行下游任务。
 
 你必须避免：
 
@@ -35,13 +39,37 @@ description: Use this skill whenever the user gives a new instruction, correctio
 
 1. 读取用户最新 prompt 的字面表达。
 2. 回到当前对话上下文，识别它承接或修订了什么。
-3. 区分用户明确说出的内容和你从上下文推断出的内容。
-4. 判断这次输入是在新增需求、修订边界、纠偏理解、要求沉淀、推进执行，还是要求重新定位。
-5. 把它转换成后续 skill 可以使用的结构化输入。
+3. 识别真实意图，不只看事件本身，还要覆盖因果关系、想产生的价值、显性条件、隐性条件和边界约束。
+4. 区分用户明确说出的内容和你从上下文推断出的内容。
+5. 判断这次输入是在新增需求、修订边界、纠偏理解、要求沉淀、推进执行，还是要求重新定位。
+6. 把它转换成后续 skill 可以使用的结构化输入。
+
+## 真实意图判断
+
+“真实意图”不是对用户当前事件的短句复述，而是把用户为什么这样说、想改变什么、受什么条件限制合成一个完整判断。
+
+分析真实意图时，必须同时看以下维度：
+
+- 事件本身：用户表面上正在提出、修订、纠偏、确认或推进什么。
+- 上下文关系：这句话承接了前文哪一段，否定、保留或新增了什么。
+- 因果关系：用户为什么现在提出这个要求，前因是什么，担心的后果是什么。
+- 价值指向：用户希望这个要求产生什么价值，减少什么误解、成本、风险或损耗。
+- 显性条件：用户明说的范围、限制、格式、禁止项、验收点。
+- 隐性条件：从上下文可以强或中等强度推断出的约束、偏好、风险和未说出口的目标。
+- 边界约束：哪些事情不应由本 skill 执行，哪些内容需要交给后续主流程或其他 skill。
+
+如果某些维度缺失，不要硬补；把缺失项放入“不确定点”。弱推断只能放入“不确定点”，不要写成隐性要求。
+
+这些维度是判断清单，不是固定输出小标题。输出时要合并成自然、紧凑的判断；简单输入不要为了覆盖所有维度而写长。
 
 ## 输出模板
 
-默认使用以下结构。内容少时可以用紧凑版，高频输入可以用极简版，内容复杂或存在冲突时用完整版。
+默认只使用以下两种结构：完整版和紧凑版。
+
+根据任务复杂度选择：
+
+- 完整版：用于复杂任务、多约束任务、上下文较长、用户正在修订边界、存在冲突或需要明确区分显性/隐性要求的输入。
+- 紧凑版：用于任务简单、意图明确、上下文不复杂、只需要快速展示理解的输入。紧凑版也要呈现真实意图，但只保留对当前输入有决定作用的因果、价值或条件，不逐项铺开。
 
 不要为了填满模板而制造空洞内容。结构是为了让意图清楚，不是为了把每个输入都压成机械表格。
 
@@ -54,7 +82,7 @@ description: Use this skill whenever the user gives a new instruction, correctio
 [用户这句话表面上说了什么。]
 
 ### 2. 真实意图
-[结合上下文，用户真正想推进、修订或确认的事情。]
+[结合上下文，完整说明用户真正想推进、修订或确认的事情。不能只复述事件本身；要覆盖上下文关系、因果关系、价值指向、显性条件、隐性条件和边界约束。]
 
 ### 3. 需求转换
 [把用户输入转换成更完整、可被后续处理的需求描述。]
@@ -80,14 +108,14 @@ description: Use this skill whenever the user gives a new instruction, correctio
 
 ### 紧凑版
 
-用户只是要求“理解我的意图”“复述理解”“修订意图”时，优先用紧凑版：
+任务简单、意图明确、上下文不复杂时，用紧凑版：
 
 ```markdown
 ## 意图理解
 
 用户字面上是在说：[字面表达]。
 
-结合上下文，真实意图是：[真实意图]。
+结合上下文，真实意图是：[真实意图。不能只写表面任务，要压缩呈现上下文关系、因果、价值、显性条件、隐性条件和边界。]
 
 这可以转换为一个需求：[需求转换]。
 
@@ -103,28 +131,6 @@ description: Use this skill whenever the user gives a new instruction, correctio
 
 不确定点：
 - [不能确定的内容；若没有，写“暂无明显不确定点”]
-```
-
-### 极简版
-
-用户输入很短、意图明确、没有明显隐性要求时，用极简版，控制在 120-180 字：
-
-```markdown
-## 意图理解
-
-用户这次是在表达：[真实意图]。
-
-需求是：[需求转换]。
-
-目标是：[目标]。
-
-目的在于：[目的]。
-
-显性要求：[用户明说的要求]。
-
-隐性要求：暂无明显隐性要求。
-
-不确定点：[若没有，写“暂无明显不确定点”。]
 ```
 
 ## 输出原则
@@ -155,6 +161,30 @@ description: Use this skill whenever the user gives a new instruction, correctio
 - 推断：暂不需要设计方案。依据：用户明确说“你要理解我的意图”，没有要求进入设计。
 ```
 
+### 保证真实意图完整
+
+真实意图必须比字面表达更深，比需求转换更综合。写这一项时至少检查：
+
+- 是否说明用户表面问题背后的因果关系。
+- 是否说明用户想创造的价值或避免的损耗。
+- 是否说明用户明说的条件如何影响理解。
+- 是否说明可推断的隐性条件，并标注推断强度和依据。
+- 是否说明这次输入对前文理解做了什么修订。
+
+完整不等于冗长。真实意图字段优先写成 1-3 个信息密度高的自然段；只有复杂输入才展开更多。
+
+不合格：
+
+```markdown
+真实意图是：用户想分析自媒体选题。
+```
+
+合格：
+
+```markdown
+真实意图是：用户不只是想要选题技巧，而是想理解在注意力竞争中，什么选题能让普通账号被看见、被参与，并逐步形成自媒体资产。这个诉求背后的因果关系是：选题如果不能连接社会议题、用户参与动机和持续表达机制，就无法从单篇内容转化为账号建立。显性条件是关注“社会上被看见”和“用户愿意参与”，隐性条件是需要兼顾传播、定位和长期积累。
+```
+
 ### 处理修订和纠偏
 
 当用户说“不是这个意思”“修订意图”“你的理解偏了”时，重点识别：
@@ -171,6 +201,10 @@ description: Use this skill whenever the user gives a new instruction, correctio
 不要把短 prompt 机械理解成单步命令。要说明它在当前上下文中承接的对象和真实目的。
 
 ### 不抢下游工作
+
+展示意图理解不是流程终点。完成意图理解后，除非用户只要求意图理解或复述，主流程可以继续推进合适的下游 skill、工具或行动。
+
+当用户使用“如何做”“怎样设计”“怎么练习”“给方案”等表达时，本 skill 只解释用户为什么需要这个方案、方案要解决什么价值问题、受什么条件约束；不要在意图理解阶段给步骤、策略、训练计划或设计方案。
 
 如果用户说“设计一个测试用例 skill”，这里只解释用户想设计什么、为什么要设计、有哪些明确和隐含要求。不要直接写完整 skill 设计。
 
@@ -199,11 +233,22 @@ description: Use this skill whenever the user gives a new instruction, correctio
 ## 常见失败模式
 
 - 只复述字面表达，没有结合上下文。
+- 真实意图只写“用户想做什么”，没有说明因果关系、价值指向和条件约束。
+- 把“目标”“目的”“价值”混成一句话，导致后续主流程不知道真正要优化什么。
+- 为了追求完整，把简单输入写得过长，打断后续主流程。
 - 进入方案设计、计划或执行。
 - 把隐性要求写成事实。
+- 为了显得完整而硬造隐性条件，或把弱推断写成强推断。
+- 遇到“如何/怎样/设计/练习”就直接输出方法步骤，而不是停留在意图理解。
 - 忽略用户最新纠偏。
 - 没有说明不确定点。
 - 输出抽象空泛，不能给下游 skill 使用。
+
+## 验证与迭代
+
+需要评测或继续优化本 skill 时，读取 `evals/rubric.md` 和 `evals/iteration-plan.md`。
+
+需要验证多领域复杂 prompt 时，读取 `evals/complex-intent-evals.json`。
 
 ## 自检
 
@@ -211,6 +256,8 @@ description: Use this skill whenever the user gives a new instruction, correctio
 
 - 是否解释了用户最新输入的字面意思？
 - 是否说明了它在上下文中的真实意图？
+- 真实意图是否包含因果关系、价值指向、显性条件和隐性条件？
+- 当前输入是否真的需要完整版，还是紧凑版已经足够？
 - 是否转换成了完整需求？
 - 是否区分显性要求和隐性要求？
 - 隐性要求是否标注为推断，并写了依据？
