@@ -1,0 +1,4 @@
+interface:
+  display_name: "三层深度分析"
+  short_description: "贯通事实、因果与局势，揭示关键隐含约束并形成可执行意见"
+  default_prompt: "使用 $look-think 重建这个问题的事实、因果与局势，识别会改变判断的关键隐含约束，并给出连续推演与决策意见。"

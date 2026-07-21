@@ -1,11 +1,8 @@
 ---
 name: web-chrome
-description: >
-  agent 的自动化上网能力。所有联网操作通过此 skill：浏览网页、获取内容、登录后操作、
-  抓取平台内容、自由导航探索。15-tab 智能页面池（达11主动淘汰）、拟人化操作
-  （贝塞尔鼠标/泊松节奏/isTrusted输入）、站点经验学习、拦截感知与经验积累。
-  替代过时的 web-access。触发词："上网""打开网页""浏览""获取网页内容""抓取"
-  "爬取""操作页面""登录后操作""看下这个网址"。不触发：深度多轮调研（用 deep-research-search）。
+description: "为 agent 提供自动化通过 chrom 浏览器上网能力。需要浏览或打开网页、获取或抓取内容、操作页面及登录态网站时触发；多轮深度调研不触发。"
+version: "1.0"
+
 ---
 
 # web-chrome：agent 的眼睛和手
@@ -27,8 +24,6 @@ description: >
 
 | 场景 | 工具 |
 |------|------|
-| 搜索发现信息源 | WebSearch |
-| URL 已知，定向提取特定信息 | WebFetch / Jina（`r.jina.ai/...`，省 token，限 20 RPM） |
 | URL 已知，要原始 HTML（meta、JSON-LD） | curl |
 | 反爬平台 / 登录态 / JS 渲染 / 自由导航探索 | **CDP Proxy（本 skill 核心）** |
 | PDF 等二进制下载 | curl |

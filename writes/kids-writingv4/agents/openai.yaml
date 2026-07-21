@@ -1,0 +1,4 @@
+interface:
+  display_name: "儿童写作教练 v4"
+  short_description: "面向12岁孩子的四段构思链、一材三写与范文教学"
+  default_prompt: "使用 $kids-writingv4 根据这份作文要求，先用四段构思链教孩子审题、找素材和比较三条写作路线，再完成三篇范文。"

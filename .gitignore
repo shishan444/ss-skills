@@ -10,3 +10,7 @@
 
 # OS misc
 Thumbs.db
+
+# Python
+__pycache__/
+*.py[cod]

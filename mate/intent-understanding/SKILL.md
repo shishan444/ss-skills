@@ -1,6 +1,8 @@
 ---
 name: intent-understanding
 description: Use this skill whenever the user gives a new instruction, correction, vague request, design revision, or says "理解我的意图", "你要理解我的意思", "修订意图", "继续讨论", or similar. This skill only interprets the user's intent from the latest prompt plus context, converting it into structured需求、目标、显性要求、隐性要求、目的、不确定点. It must not design solutions, make plans, write code, or advance the task.
+version: "1.0"
+
 ---
 
 # 意图理解
