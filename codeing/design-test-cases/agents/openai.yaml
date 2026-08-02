@@ -1,0 +1,4 @@
+interface:
+  display_name: "工程三层测试与验证"
+  short_description: "工程开发必用：按风险设计并执行适用的三层测试，形成交付证据"
+  default_prompt: "使用 $design-test-cases 为这项工程开发选择适当验证深度，设计并执行适用的三层测试，形成可追溯的交付证据。"
