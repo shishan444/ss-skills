@@ -1,6 +1,6 @@
 ---
 name: intent-understanding
-description: Use this skill as the first-pass intent understanding layer for natural-language user inputs, including new instructions, corrections, vague requests, design revisions, and context-dependent short prompts. Do not use this skill for system-provided client commands or command-only control messages such as slash commands (`/model`, `/help`, `/clear`, `/compact`, `/permissions`, `/plugin`, `/skill`, etc.); those should be handled by the client/runtime without intent analysis. For eligible inputs, understand the latest prompt plus context, then display the intent using the full or compact template based on task complexity. The real intent must include the surface request, contextual relationship, causal chain, value sought, explicit conditions, implicit conditions, uncertainty, and boundaries. The result also serves as internal context for the main flow. Displaying intent must not block or replace downstream work; continue with the appropriate downstream skill, tool, or action unless the user only asked for intent understanding or restatement. This skill itself must not perform the downstream task, make final decisions, write code, design solutions, or hide uncertainty.
+description: 除系统 slash 命令（/modes、/skills、/clear 等）外，每次用户输入都先调用本 skill 做意图校准，把模型对输入的理解对齐到用户真实意图，按复杂度自适应输出（一行确认到完整结构化判断），作为下游响应的内部依据；只校准不执行。
 version: "1.0"
 ---
 
