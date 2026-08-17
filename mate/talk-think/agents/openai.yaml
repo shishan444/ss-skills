@@ -1,0 +1,4 @@
+interface:
+  display_name: "认知推进讨论"
+  short_description: "从有限表达中找到关键关系，推进问题理解、判断与行动"
+  default_prompt: "使用 $talk-think 和我讨论这个问题，帮我找到真正卡住认识的关键关系，并给出下一步思路。"
