@@ -1,0 +1,4 @@
+interface:
+  display_name: "文章 1｜究事"
+  short_description: "沿时间、空间与人物位置还原事件，形成可追溯的事实底稿"
+  default_prompt: "使用 $article-research 沿时间、空间与人物位置究清这件事，并形成可追溯的事实底稿。"

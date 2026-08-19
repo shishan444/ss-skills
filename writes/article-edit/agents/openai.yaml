@@ -1,0 +1,4 @@
+interface:
+  display_name: "文章 4｜调声"
+  short_description: "根据具体读者调整声口、句气与文化距离，同时保持文章原意"
+  default_prompt: "使用 $article-edit 面向这位具体读者调节声口、句气与文化距离，同时保持原意。"

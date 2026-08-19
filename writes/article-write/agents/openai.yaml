@@ -1,0 +1,4 @@
+interface:
+  display_name: "文章 3｜成章"
+  short_description: "围绕文眼安排意脉、详略与气口，写成认识递进的完整文章"
+  default_prompt: "使用 $article-write 围绕已选文眼安排意脉、详略与气口，并写成完整文章。"

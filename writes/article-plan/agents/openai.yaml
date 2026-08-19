@@ -1,0 +1,4 @@
+interface:
+  display_name: "文章 2｜立意"
+  short_description: "从变化、矛盾与现实关切中察势立意，最终收敛为一个文眼"
+  default_prompt: "使用 $article-plan 从事实底稿察势立意，比较不同方向并收敛为一个文眼。"
