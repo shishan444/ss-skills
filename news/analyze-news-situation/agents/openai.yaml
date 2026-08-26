@@ -1,0 +1,4 @@
+interface:
+  display_name: "自动新闻深度分析"
+  short_description: "核验新闻事实，穿透原因影响，按自然阅读顺序形成清晰判断"
+  default_prompt: "使用 $analyze-news-situation 自动打开并深度分析这篇新闻，核验关键事实，补足会改变理解的材料，先用一句短话说清核心，再按自然问题逐层展开判断。"
