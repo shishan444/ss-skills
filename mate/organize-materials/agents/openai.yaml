@@ -1,0 +1,4 @@
+interface:
+  display_name: "事实与材料重组"
+  short_description: "脱离原文表达，用白话还原核心事实并重建材料关系"
+  default_prompt: "使用 $organize-materials 脱离原文表述，用白话还原材料中的核心事实、基本情况和发展，再重建其中的关系与边界。"
