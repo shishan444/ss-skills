@@ -1,0 +1,4 @@
+interface:
+  display_name: "深度调研"
+  short_description: "以可追溯证据、浏览器实地调研和质量校验生成专业研究报告"
+  default_prompt: "使用 $deep-research 调研这个主题，先对齐研究范围，再通过 web-chrome 收集证据并生成可追溯报告。"

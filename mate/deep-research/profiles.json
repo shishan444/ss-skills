@@ -1,0 +1,38 @@
+{
+  "quick": {
+    "description": "方向扫描、会前准备和低风险判断",
+    "min_chapters": 4,
+    "max_chapters": 6,
+    "min_paragraphs": 4,
+    "max_chars": 15000,
+    "min_independent_sources": 6,
+    "target_sources": 10,
+    "max_research_rounds": 1,
+    "high_priority_min_sources": 2,
+    "novelty_stop_ratio": 0.15
+  },
+  "standard": {
+    "description": "默认的跨来源完整研究",
+    "min_chapters": 6,
+    "max_chapters": 8,
+    "min_paragraphs": 5,
+    "max_chars": 25000,
+    "min_independent_sources": 12,
+    "target_sources": 20,
+    "max_research_rounds": 2,
+    "high_priority_min_sources": 2,
+    "novelty_stop_ratio": 0.12
+  },
+  "deep": {
+    "description": "高风险、争议性或系统穷尽研究",
+    "min_chapters": 8,
+    "max_chapters": 10,
+    "min_paragraphs": 6,
+    "max_chars": 45000,
+    "min_independent_sources": 20,
+    "target_sources": 35,
+    "max_research_rounds": 3,
+    "high_priority_min_sources": 3,
+    "novelty_stop_ratio": 0.1
+  }
+}

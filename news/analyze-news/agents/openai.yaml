@@ -1,0 +1,4 @@
+interface:
+  display_name: "新闻深度理解"
+  short_description: "从新闻文章还原事实、因果、局势与影响传播的可追溯分析"
+  default_prompt: "使用 $analyze-news 深度理解这篇新闻，给出时间线、观点因果、影响链路和观察信号。"

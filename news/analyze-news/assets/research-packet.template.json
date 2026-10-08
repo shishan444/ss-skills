@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0",
+  "subject": {
+    "title": "",
+    "question": "",
+    "input_url": "",
+    "as_of": ""
+  },
+  "workflow": {
+    "phase": "initialized",
+    "research_status": "in_progress",
+    "analysis_status": "not_started",
+    "followup_rounds": 0,
+    "delivery_recoveries": 0
+  },
+  "article": {
+    "url": "",
+    "title": "",
+    "publisher": "",
+    "published_at": "",
+    "access_status": "unknown"
+  },
+  "claims": [],
+  "evidence": [],
+  "timeline": [],
+  "viewpoints": [],
+  "analysis": {
+    "nature": {
+      "statement": "",
+      "status": "unknown",
+      "claim_ids": []
+    },
+    "causal_chains": [],
+    "impacts": []
+  },
+  "gaps": [],
+  "search": {
+    "source_budget": 12,
+    "valid_source_count": 0,
+    "counter_search_done": false,
+    "no_material_change_batches": 0,
+    "stop_reason": null
+  },
+  "completion": {
+    "status": "in_progress",
+    "reason": ""
+  }
+}

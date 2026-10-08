@@ -1,0 +1,4 @@
+interface:
+  display_name: "故事八卦式科普"
+  short_description: "把技术机制、组织结构或思维方法写成十一段口语故事讲稿"
+  default_prompt: "使用 $story-gossip-explainer 把这个机制写成一篇面向零基础听众的十一段故事式口语讲稿。"

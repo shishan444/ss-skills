@@ -1,0 +1,4 @@
+interface:
+  display_name: "观点文章创作"
+  short_description: "将真实素材写成有温度、有暗线和明确判断的中文自媒体长文"
+  default_prompt: "使用 $viewpoint-writer 将这些真实素材写成一篇有温度、有暗线和明确判断的中文自媒体文章。"

@@ -1,0 +1,4 @@
+interface:
+  display_name: "深度思考引擎"
+  short_description: "用强制覆盖、阶段收敛和认知复位分析高遗漏风险的复杂问题"
+  default_prompt: "使用 $ten-thinking 深度分析这个复杂问题，找出遗漏、关键机制、失效条件与下一步行动。"
